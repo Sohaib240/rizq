@@ -9,8 +9,8 @@ import javax.persistence.Id;
 @Entity
 public class School {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    Integer id;
     String name;
     String address;
     String principleName;
@@ -18,12 +18,18 @@ public class School {
     public School() {
     }
 
-    public School(Integer id, String name, String address, String principleName) {
-        this.id = id;
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void setPrincipleName(String principleName) {
         this.principleName = principleName;
     }
+
 
     public Integer getId() {
         return id;

@@ -34,6 +34,19 @@ public class SchoolController {
         return new ResponseEntity<>(schoolRepository.save(school), HttpStatus.OK);
     }
 
+    @PostMapping("/tutorials/update/{id}")
+    public ResponseEntity<School> updateSchoolById(@PathVariable Integer id, @RequestBody School school) {
+        Optional<School> dbEntry = schoolRepository.findById(id);
+        if (dbEntry.isPresent()) {
+            School existingSchool = dbEntry.get();
+            existingSchool.setAddress(school.getAddress());
+            existingSchool.setPrincipleName(school.getPrincipleName());
+            existingSchool.setName(school.getName());
+            return new ResponseEntity<>(schoolRepository.save(school), HttpStatus.OK);
+        } else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @DeleteMapping("/tutorials/{id}")
     public ResponseEntity<HttpStatus> deleteSchool(@PathVariable("id") Integer id) {
         try {
